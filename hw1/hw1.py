@@ -1,5 +1,6 @@
 import numpy as np
 import sys
+import matplotlib.pyplot as plt
 
 
 def read_file(pathname): 
@@ -45,15 +46,28 @@ def pla(X, Y):
 
 def main():
     X, Y = read_file(sys.argv[1])
-
+    iteration = 2000
     total_step = 0
-    for i in range(2000):
+    
+    step_array = np.zeros(100, dtype=np.int)
+
+    for i in range(iteration):
         X, Y = _shuffle(X,Y)
         step = pla(X,Y)
+        step_array[step] = step_array[step]+1 
         print(str(i)+':'+str(step))
         total_step = total_step + step
+    print (step_array)
+    print (total_step/iteration)
 
-    print (total_step/2000)
+
+
+    plt.xlabel('numbers of step', fontsize=14)
+    plt.ylabel('times', fontsize=14)
+    #plt.xticks(np.linspace(0, 300, 300))
+    plt.bar(np.arange(100),step_array)
+    plt.show()
+
 
 
 
